@@ -1,0 +1,156 @@
+WindowMenager:
+    MainMenu:
+    ProgBarMenu:
+    ProgressOfCurrentYear:
+    ProgressOfLife:
+    CustomizeLife:
+
+<MainMenu>:
+    name: "main"
+    GridLayout:
+        cols:1
+
+        Button:
+            text:"Progres Bar"
+            on_release:
+                app.root.current = 'mainP'
+
+
+<ProgBarMenu>:
+    name: "mainP"
+    GridLayout:
+        cols:1
+
+        Button:
+            text: "Progres of current year"
+            on_release:
+                app.root.current = "pocy"
+        Button:
+            text: "Progres of life"
+            on_release:
+                app.root.current = "pol"
+        Button:
+            text: "Customomize Life Bar"
+            on_release:
+                app.root.current = "cl"
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "main"
+
+<ProgressOfCurrentYear>:
+    name: "pocy"
+    pocy_bar: pocy_bar
+    pocy_text: pocy_text
+
+    GridLayout:
+        cols:1
+
+        Label:
+            text: "This is the progress of current year"
+
+        ProgressBar:
+            id: pocy_bar
+            max: 100
+            value: root.procent_of_year()   
+
+
+        Label:
+            id: pocy_text
+            text: root.procent_text()
+
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "mainP"
+
+<ProgressOfLife>:
+    name: "pol"
+    pol_bar: pol_bar
+    pol_text: pol_text
+    
+    
+
+    GridLayout:
+        cols: 1
+        
+        Label:
+            text: "This is progress of life"
+
+        ProgressBar:
+            id: pol_bar
+            max: 100
+            value: root.percent_of_life()
+
+        Label:
+            id: pol_text
+            text: root.percent_ol_text()
+
+
+        Button:
+            text: "Back"
+            on_release:
+                app.root.current = "mainP"
+
+<CustomizeLife>:
+    name: "cl"
+    cl_text_ls: cl_text_ls
+    cl_text_bd: cl_text_bd
+    cl_text_bm: cl_text_bm
+    cl_text_by: cl_text_by
+    cl_input_ls: cl_input_ls
+    cl_input_bd: cl_input_bd
+    cl_input_bm: cl_input_bm
+    cl_input_by: cl_input_by
+
+    GridLayout:
+        cols: 2
+
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Current settings:"
+            Label:
+                id: cl_text_ls
+                text: root.print_lifespan()
+            
+            Label:
+                id: cl_text_bd
+                text: root.print_bday()
+            Label:
+                id: cl_text_bm
+                text: root.print_bmonth()
+            Label:
+                id: cl_text_by
+                text: root.print_byear()
+
+            Button:
+                text: "Back"
+                on_release:
+                    app.root.current = "mainP"
+
+        GridLayout:
+            cols: 1
+            Label:
+                text: "Input new configaratiuon"
+            TextInput:
+                id: cl_input_ls
+                multiline: False
+            TextInput:
+                id: cl_input_bd
+                multiline: False
+            TextInput:
+                id: cl_input_bm
+                multiline: False
+            TextInput:
+                id: cl_input_by
+                multiline: False
+            Button:
+                text:"Submit"
+                on_release:
+                    root.update_config()
+
+
+
+
+
