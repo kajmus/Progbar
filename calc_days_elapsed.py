@@ -56,7 +56,7 @@ def date_to_weeks(day,month):
 
 
 
-def weeks_since_birth(bday=1, bmonth=1, byear=2003):
+def weeks_since_birth(bday=1, bmonth=1, byear=2000):
   """ 
   calculates how many weeks have passed since inputed date
   weeks_since_birth()-> int
