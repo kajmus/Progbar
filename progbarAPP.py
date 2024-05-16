@@ -30,6 +30,10 @@ def open_file(file= "config.json"):
   
 config = open_file()   
 
+def reload_conf():
+    global config
+    config = open_file()
+
 class MainMenu(Screen):
     pass
 class ProgBarMenu(Screen):
@@ -70,6 +74,7 @@ class CustomizeLife(Screen):
     cl_input_bd = ObjectProperty(None)
     cl_input_bm = ObjectProperty(None)
     cl_input_by = ObjectProperty(None)
+    
 
 
     def get_lifespan(self):
@@ -95,39 +100,38 @@ class CustomizeLife(Screen):
 
     def update_config(self):
         if self.set_lifespan() and self.set_bday() and self.set_bmonth() and self.set_byear():
-            try:
-                with open("config.json","w") as file:
-                    config["ProgressOfLife"]["lifespan"] = self.cl_input_ls
-                    config["ProgressOfLife"]["bday"] = self.cl_input_bd
-                    config["ProgressOfLife"]["bmonth"]= self.cl_input_bm
-                    config["ProgressOfLife"]["byear"]= self.cl_input_by
-                    json.dump(config, file)
-            except:
-                self.error_popup
+            config["ProgressOfLife"]["lifespan"] = int(self.cl_input_ls.text)
+            config["ProgressOfLife"]["bday"] = int(self.cl_input_bd.text)
+            config["ProgressOfLife"]["bmonth"]= int(self.cl_input_bm.text)
+            config["ProgressOfLife"]["byear"]= int(self.cl_input_by.text)
+            with open("config.json","w") as file:
+                json.dump(config, file)
+        else:
+            self.error_popup
 
     def set_lifespan(self):
-        x = self.cl_input_ls
+        x = int(self.cl_input_ls.text)
         if type(x) is int and x>0  and x<150:
             return True
         else:
             return False
 
     def set_bday(self):
-        x = self.cl_input_bd
+        x = int(self.cl_input_bd.text)
         if type(x) is int and x <31:
             return True
         else:
             return  False
 
     def set_bmonth(self):
-        x = self.cl_input_bm
-        if type(x) is int and x < 12:
+        x = int(self.cl_input_bm.text)
+        if type(x) is int and x < 13:
             return True
         else:
             return False  
 
     def set_byear(self):
-        x = self.cl_input_by
+        x = int(self.cl_input_by.text)
         if type(x) is int:
             return True
         else:
